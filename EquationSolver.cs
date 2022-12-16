@@ -1,4 +1,5 @@
 ﻿using EquationSolver.Interfaces;
+using System;
 
 namespace EquationSolver
 {
@@ -39,10 +40,16 @@ namespace EquationSolver
                     return nr1 * nr2;
 
                 case TokenKind.Division:
-                    return nr1 / nr2;
+                    if (nr2 != 0)
+                        return nr1 / nr2;
+                    else
+                        throw new DivideByZeroException("Division by zero isn't possible!");
 
                 case TokenKind.Pow:
-                    return Pow(nr1, nr2);
+                    if (nr1 == 0 && nr2 == 0)
+                        throw new InvalidOperationException("Zero to the power of zero is not defined!");
+                    else
+                        return Pow(nr1, nr2);
             }
 
             return 0;
@@ -50,19 +57,27 @@ namespace EquationSolver
 
         /// <summary>
         /// Method used to determine the power of an number
-        /// HINT: This method isn't complete. Please rather use Math.Pow if allowed!
         /// </summary>
         /// <param name="baseNr">base</param>
         /// <param name="exponent">exponent</param>
         /// <returns>the power of the base nr</returns>
         private static double Pow(double baseNr, double exponent)
         {
-            var res = baseNr;
+            return Math.Pow(baseNr, exponent);
+            // Only use this bit if youre not allowed to use math.pow or such
 
-            for (var i = 1; i < exponent; i++)
-                res *= baseNr;
+            //if (exponent == 0)
+            //    if (double.IsNegative(baseNr))
+            //        return -1.0D;
+            //    else
+            //        return 1.0D;
 
-            return res;
+            //var res = baseNr;
+
+            //for (var i = 1; i < exponent; i++)
+            //    res *= baseNr;
+
+            //return res;
         }
     }
 }
