@@ -12,6 +12,8 @@ namespace EquationSolver
         /// Solve the tokentree recursivly
         /// </summary>
         /// <param name="equation">An equation token</param>
+        /// <exception cref="DivideByZeroException">Gets thrown if tried to divide by zero</exception>
+        /// <exception cref="InvalidOperationException">Gets thrown if tried to calculate zero the power of zero</exception>
         /// <returns>a double representing the solved equation</returns>
         public static double Solve(Token equation)
         {
